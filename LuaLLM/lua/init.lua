@@ -1,6 +1,6 @@
 -- File: lua/yourplugin/init.lua
 local uv = vim.loop
-local config = require("yourplugin.config").defaults
+local config = require("LuaLLM.config").defaults
 
 local M = {}
 
