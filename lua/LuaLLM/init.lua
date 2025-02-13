@@ -130,10 +130,29 @@ function M.write_string_at_cursor(str)
   end)
 end
 
+local function get_prompt()
+  
+  local visual_lines = M.get_visual_selection()
+  local prompt = ''
+  if visual_lines then
+    prompt = table.concat(visual_lines, '\n')
+    if replace then
+      vim.api.nvim_command 'normal! d'
+    else
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', false, true, true), 'nx', false)
+    end
+  else
+    prompt = M.get_lines_until_cursor()
+  end
+
+  return prompt
+end
+
+
 function M.trigger_zig()
   -- Gather input from the screen.
   -- You might adjust this to get a visual selection or other region.
-  local input = M.get_lines_until_cursor()
+  local input = M.get_prompt()
 
   local function send_input()
     uv.write(client, input, function(err)
