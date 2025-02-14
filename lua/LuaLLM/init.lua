@@ -153,9 +153,11 @@ function M.trigger_zig()
   -- Gather input from the screen.
   -- You might adjust this to get a visual selection or other region.
   local input = get_prompt()
-
+  local current_filepath = vim.api.nvim_buf_get_name(0)
+  -- Format the prompt as: PROMPT 'current_filepath' + input
+  local prompt_message = "PROMPT '" .. current_filepath .. "' + " .. input
   local function send_input()
-    uv.write(client, input, function(err)
+    uv.write(client, prompt_message, function(err)
       if err then
         vim.schedule(function()
           vim.notify("Error sending data to Zig server: " .. err, vim.log.levels.ERROR)
