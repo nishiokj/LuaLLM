@@ -155,7 +155,7 @@ function M.trigger_zig()
   local input = get_prompt()
   local current_filepath = vim.fn.expand('%')
   -- Format the prompt as: PROMPT 'current_filepath' + input
-  local prompt_message = "PROMPT \ " .. current_filepath .. " " .. input
+  local prompt_message = "PROMPT \\ " .. current_filepath .. " " .. input
   local function send_input()
     uv.write(client, prompt_message, function(err)
       if err then
