@@ -14,7 +14,7 @@ function M.setup(user_config)
 end
 
 -- Starts the Zig server as a Neovim job.
-function M.start_zig_server()
+function M.start_zig_server(callback)
   local args = { "--port", tostring(config.zig_port) }
   local job_id = vim.fn.jobstart({ config.zig_server_path, unpack(args) }, {
     on_stdout = function(_, data, _)
@@ -168,7 +168,7 @@ function M.trigger_zig()
 
   -- If the client is not yet connected, connect and then send.
   if not client:is_readable() then
-    connect_client(send_input)
+    M.connect_to_zig(send_input)
   else
     send_input()
   end
