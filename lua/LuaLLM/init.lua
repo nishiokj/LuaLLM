@@ -152,7 +152,7 @@ end
 function M.trigger_zig()
   -- Gather input from the screen.
   -- You might adjust this to get a visual selection or other region.
-  local input = M.get_prompt()
+  local input = get_prompt()
 
   local function send_input()
     uv.write(client, input, function(err)
